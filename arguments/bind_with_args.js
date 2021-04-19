@@ -1,7 +1,21 @@
-Function.prototype.myBind = function(context, ...bindArgs){
+// Function.prototype.myBind = function(context, ...bindArgs){
+//   debugger
+//   let that = this;
+//   return function(...callArgs){
+//     debugger
+//     return that.apply(context, bindArgs.concat(callArgs))
+//   }
+// }
+
+Function.prototype.myBind = function(context) {
   let that = this;
-  return function(...callArgs){
-    return that.apply(context, bindArgs.concat(callArgs))
+  let args = Array.prototype.slice.call(arguments);
+  args = args.slice(1);
+  // debugger
+  return function() {
+    let args1 = Array.prototype.slice.call(arguments);
+    // debugger
+    return that.apply(context, args.concat(args1));
   }
 }
 
@@ -30,7 +44,7 @@ markov.says("meow", "Ned");
 // true
 
 // bind time args are "meow" and "Kush", no call time args
-markov.says.myBind(pavlov, "meow", "Kush")();
+markov.says.myBind(pavlov, "Kush", "meow")();
 // Pavlov says meow to Kush!
 // true
 
